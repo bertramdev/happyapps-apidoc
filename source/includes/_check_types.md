@@ -1,6 +1,6 @@
 # Check Types
 
-A set of apis for fetching a list of available check types is also provided. This can make it useful for associating a check type code to an id for the check `GET` requests.
+A set of APIs for fetching a list of available check types is also provided. This API can make it useful for associating a check type code to an ID for check `GET` and `POST` requests.
 
 ## Get All Check Types
 
@@ -9,7 +9,7 @@ curl "https://api.happyapps.io/api/check-types"
   -H "Authorization: BEARER access_token"
 ```
 
-> The above command returns JSON Structured like this
+> The above command returns JSON structured like this
 
 ```json
 {
@@ -229,7 +229,7 @@ curl "https://api.happyapps.io/api/check-types/10"
   -H "Authorization: BEARER access_token"
 ```
 
-> The above command returns JSON Structured like this
+> The above command returns JSON structured like this
 
 ```json
 {

@@ -1,6 +1,6 @@
 # Checks
 
-Checks are the basic entity of everything you do in Happy apps. These entities define what gets run and when within the happy apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to not only get a list of all of an accounts checks but also to create, modify, mute, and delete them.
+Checks are the basic entity of everything you do in Happy Apps. These entities define what and when a check is executed within the Happy Apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to list of all of an account's checks in addition to create, modify, mute, and or delete them.
 
 ## Get All Checks
 
@@ -64,7 +64,7 @@ curl "https://api.happyapps.io/api/checks"
 }
 ```
 
-This endpoint retrieves all checks and their json encoded config attributes based on check type. These are encryped in the database.
+This endpoint retrieves all checks and their JSON encoded configuration attributes based on check type. Check data is encrypted in the database.
 
 ### HTTP Request
 
@@ -74,10 +74,10 @@ This endpoint retrieves all checks and their json encoded config attributes base
 
 Parameter | Default | Description
 --------- | ------- | -----------
-max | 25 | The max number of results to return
-offset | 0 | The offset of records you want to load
-lastUpdated | null | A date filter, restricts query to only load checks updated more recent or equal to the date specified
-deleted | undefined | if this param is specified you can load previously deleted checks. This is useful for synchronizing deleted records in your client side store.
+max | 25 | Max number of results to return
+offset | 0 | Offset of records you want to load
+lastUpdated | null | Date filter, restricts query to only load checks updated  timestamp is more recent or equal to the date specified
+deleted | undefined | Used to specify you can load previously deleted checks. Useful for synchronizing deleted records in your client side store.
 
 
 <aside class="success">
@@ -157,7 +157,7 @@ This endpoint retrieves a specific check.
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the check to retrieve
+ID | ID of the check to retrieve
 
 ## Create a Check
 
@@ -178,7 +178,7 @@ curl -XPOST "https://api.happyapps.io/api/checks" \
   }}'
 ```
 
-> The above command returns JSON structured like getting a single check: 
+> The above command returns a similar JSON structure when submitting a GET request for a single check 
 
 ### HTTP Request
 
@@ -188,15 +188,15 @@ curl -XPOST "https://api.happyapps.io/api/checks" \
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name      | null | A unique name scoped to your account for the check
-description | null | Optional description field if you want to put more info there
-checkType | null | The check type you want to create should be passed by code `{"code": "webGetCheck"}`
-checkInterval | 300 | The number of seconds you want between check runs (can go as low as one minute if payment plan permits)
-inUptime  | true | Wether or not this check should affect account wide availability calculations.
-active    | true | Wether or not the check should be marked active for run
-severity  | critical | The severity level of incidents that are created when this check fails. They can be one of `info`, `warning`, or `critical`
-checkAgent | null | Can specify the checkAgent you want to run the check with i.e. `{"id": 1}`
-config | null | A JSON Encoded list of parameters that varies by check type. See below for more info
+name      | null | Unique name scoped to your account for the check
+description | null | Optional description field
+checkType | null | Check type you want to create, use code and a valid check type: `{"code": "webGetCheck"}`
+checkInterval | 300 | Number of seconds you want between check executions (minimum value is 60, depending on your subscription plan)
+inUptime  | true | Used to determine if check should affect account wide availability calculations
+active    | true | Used to determine if check should be scheduled to execute
+severity  | critical | Severity level of incidents that are created when this check fails. They can be `info`, `warning`, or `critical`
+checkAgent | null | Specifies agent you want to run the check with i.e. `{"id": 1}` See Agents for more information
+config | null | JSON encoded list of parameters that varies by check type. See below for more information
 
 ## Updating a Check
 
@@ -217,7 +217,7 @@ curl -XPUT "https://api.happyapps.io/api/checks/1" \
   }}'
 ```
 
-> The above command returns JSON structured like getting a single check: 
+> The above command returns a similar JSON structure when submitting a GET request for a single check 
 
 ### HTTP Request
 
@@ -227,19 +227,19 @@ curl -XPUT "https://api.happyapps.io/api/checks/1" \
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name      | null | A unique name scoped to your account for the check
-description | null | Optional description field if you want to put more info there
-checkType | null | The check type you want to create should be passed by code `{"code": "webGetCheck"}`
-checkInterval | 300 | The number of seconds you want between check runs (can go as low as one minute if payment plan permits)
-inUptime  | true | Wether or not this check should affect account wide availability calculations.
-active    | true | Wether or not the check should be marked active for run
-severity  | critical | The severity level of incidents that are created when this check fails. They can be one of `info`, `warning`, or `critical`
-checkAgent | null | Can specify the checkAgent you want to run the check with i.e. `{"id": 1}`
-config | null | A JSON Encoded list of parameters that varies by check type. See below for more info
+name      | null | Unique name scoped to your account for the check
+description | null | Optional description field
+checkType | null | Check type you want to create, use code and a valid check type: `{"code": "webGetCheck"}`
+checkInterval | 300 | Number of seconds you want between check executions (minimum value is 60, depending on your subscription plan)
+inUptime  | true | Used to determine if check should affect account wide availability calculations
+active    | true | Used to determine if check should be scheduled to execute
+severity  | critical | Severity level of incidents that are created when this check fails. They can be `info`, `warning`, or `critical`
+checkAgent | null | Specifies agent you want to run the check with i.e. `{"id": 1}` See Agents for more information
+config | null | JSON encoded list of parameters that varies by check type. See below for more information
 
 ## Check Types and Options
 
-We support a wide variety of check types. Each check type varies in its config payload for determining how the check should be run.
+We support a wide variety of check types. Each check type varies in its configuration payload when determining how the check should be run.
 
 
 > Creates a Web type Check
@@ -258,18 +258,18 @@ We support a wide variety of check types. Each check type varies in its config p
 
 Code: `webGetCheck`
 
-The Web check allows you to perform a standard web request style check and validate the response came back successfully or even check for matching text within the result. There are several `config` parameters available for use with this type of check
+Web check type allows you to perform a standard web request and validate the response came back successfully. Additionally, you can check for matching text within the result. There are several `config` parameters available for use with this type of check
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-webMethod | Yes         | The HTTP Method to use for testing (GET or POST)
-webUrl    | Yes         | The Web URL you wish to use to run a check on
-checkUser | No          | If you want to use HTTP Basic auth fill this in
-checkPassword | No      | If you want to use HTTP Basic auth fill in this password.
+webMethod | Yes         | HTTP method to use for testing (GET or POST)
+webUrl    | Yes         | Web URL you wish to use to run a check on
+checkUser | No          | If you want to use HTTP Basic Authentication, populate this field with the username
+checkPassword | No      | If you want to use HTTP basic Authentication, populate this field with the password
 textCheckOn   | No      | Set value to "on" if you want to turn on text matching
-webTextMatch  | No      | Set the string you want to check for
+webTextMatch  | No      | Set the string you want to look for in the page source
 
-### Mysql Check
+### MySQL Check
 
 ```json
 {
@@ -283,19 +283,19 @@ webTextMatch  | No      | Set the string you want to check for
 
 Code: `mysqlCheck`
 
-The MySQL Check allows you not only to confirm that a mysql database is up and running but also allows you to run a query and test the result value. This can be useful for doing a slow query check or just making sure something isnt growing out of control.
+MySQL check allows you to execute a query so that you may validate the value returned in addition to verifying the database is responding. This can be useful for doing a slow query check or just making sure something isn't growing out of control.
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-dbHost    | Yes         | The hostname / ipaddress of the mysql database
-dbPort    | Yes         | The MySQL Port (defaults to 3306)
-dbUser    | Yes         | The Database username
-dbPassword | Yes        | The Database password (remember this gets encrypted)
-dbName    | Yes         | The database name you would like to connect to
-checkOperator  | No     | Can be set to lt (less than), gt (greater than), equal (Equal to) for comparison
-checkResult | No        | Numerical value to compare the check result against. 
+dbHost    | Yes         | Hostname or IP address of the MySQL database
+dbPort    | Yes         | MySQL Port (defaults to 3306)
+dbUser    | Yes         | Database username
+dbPassword | Yes        | Database password, (all check data is encrypted inside the Happy Apps database)
+dbName    | Yes         | Database name you would like to connect to
+checkOperator  | No     | Can be set to `lt` (less than), `gt` (greater than), `equal` (Equal to) for comparison
+checkResult | No        | Numerical value to compare the check result against
 
-<aside class="notice">More often than not you will not want to directly connect to your mysql database on the open web. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to your database is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 ### SQL Server Check
 
@@ -311,19 +311,19 @@ checkResult | No        | Numerical value to compare the check result against.
 
 Code: `sqlCheck`
 
-The SQL Server Check allows you not only to confirm that a Microsoft SQL Server database is up and running but also allows you to run a query and test the result value. This can be useful for doing a slow query check or just making sure something isnt growing out of control.
+SQL Server check allows to execute a query so that you may validate the value returned in addition to verifying the database is responding. This can be useful for doing a slow query check or just making sure something isn't growing out of control.
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-dbHost    | Yes         | The hostname / ipaddress of the sql database
-dbPort    | Yes         | The SQL Port (defaults to 1433)
-dbUser    | Yes         | The Database username
-dbPassword | Yes        | The Database password (remember this gets encrypted)
-dbName    | Yes         | The database name you would like to connect to
-checkOperator  | No     | Can be set to lt (less than), gt (greater than), equal (Equal to) for comparison
-checkResult | No        | Numerical value to compare the check result against. 
+dbHost    | Yes         | Hostname or IP address of the SQL database
+dbPort    | Yes         | SQL Port (defaults to 1433)
+dbUser    | Yes         | Database username
+dbPassword | Yes        | Database password, (all check data is encrypted inside the Happy Apps database)
+dbName    | Yes         | Database name you would like to connect to
+checkOperator  | No     | Can be set to `lt` (less than), `gt` (greater than), `equal` (Equal to) for comparison
+checkResult | No        | Numerical value to compare the check result against
 
-<aside class="notice">More often than not you will not want to directly connect to your sql database on the open web. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to your database is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 ### PostgreSQL Check
 
@@ -339,19 +339,19 @@ checkResult | No        | Numerical value to compare the check result against.
 
 Code: `postgresCheck`
 
-The Postgres Check allows you not only to confirm that a mysql database is up and running but also allows you to run a query and test the result value. This can be useful for doing a slow query check or just making sure something isnt growing out of control.
+PostgreSQL check allows to execute a query so that you may validate the value returned in addition to verifying the database is responding. This can be useful for doing a slow query check or just making sure something isn't growing out of control.
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-dbHost    | Yes         | The hostname / ipaddress of the postgres database
-dbPort    | Yes         | The Postgres Port (defaults to 5432)
-dbUser    | Yes         | The Database username
-dbPassword | Yes        | The Database password (remember this gets encrypted)
-dbName    | Yes         | The database name you would like to connect to
-checkOperator  | No     | Can be set to lt (less than), gt (greater than), equal (Equal to) for comparison
-checkResult | No        | Numerical value to compare the check result against. 
+dbHost    | Yes         | Hostname or IP address of the PostgreSQL database
+dbPort    | Yes         | SQL Port (defaults to 5432)
+dbUser    | Yes         | Database username
+dbPassword | Yes        | Database password, (all check data is encrypted inside the Happy Apps database)
+dbName    | Yes         | Database name you would like to connect to
+checkOperator  | No     | Can be set to `lt` (less than), `gt` (greater than), `equal` (Equal to) for comparison
+checkResult | No        | Numerical value to compare the check result against
 
-<aside class="notice">More often than not you will not want to directly connect to your postgres database on the open web. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to your database is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 
 ### Socket Check
@@ -368,14 +368,14 @@ checkResult | No        | Numerical value to compare the check result against.
 
 Code: `socketCheck`
 
-With a socket check you can confirm that certain TCP based services  are up and running within your environment. This can configured to both do an initial send upon connect and a comparison of the response made.
+Socket check confirms a certain TCP port is up and responding in your environment. It can be configured do an initial send upon connect and compare and expected response of the service.
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-host      | Yes         | The hostname / ipaddress of the socket server
-port      | Yes         | The port we want to connect to
-send      | No          | A String you might want to send upon connect
-responseMatch | No      | if you wish to test for a response match enter a string here
+host      | Yes         | Hostname or IP address of the socket server
+port      | Yes         | TCP port
+send      | No          | Connection string you might want to send to the service
+responseMatch | No      | Response from the service to match against
 
 ### Elastic Search Check
 
@@ -391,20 +391,20 @@ responseMatch | No      | if you wish to test for a response match enter a strin
 
 Code: `elasticSearchCheck`
 
-The elastic search check is capable of connecting to your elastic search cluster / node and verifying its cluster health. It will also grab statistical information such as document size, capacity, and cpu usage for easy reference.
+Elasticsearch check is capable of connecting to your Elasticsearch, cluster or node, verifying its health. In addition, Happy Apps will also pull statistical information such as: document size, capacity, and cpu usage.
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-esHost      | Yes         | The hostname / ipaddress of the ElasticSearch server
-esPort      | Yes         | The http based port we want to connect to
+esHost      | Yes         | Hostname or IP address of the Elasticsearch server
+esPort      | Yes         | Port to connect to the HTTP service 
 
-<aside class="notice">More often than not you will not want to directly connect to your ellastic database on the open web due to the lack of authentication. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to Elasitcserch is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 ## SSH Tunneling
 
-SSH Tunneling options allow the different check types to tunnel into a host and perform checks relative to that host. The SSH Tunnel can use your account generated public/private key pair or a simple ssh password (however we strongly recommend the key pair).
+SSH tunneling options allow the different check types to tunnel to a host via a proxy, and execute checks relative to the proxy. A SSH tunnel can use your account generated public and private key-pairs or SSH password (we **strongly** recommend using a key-pair).
 
-To turn on ssh tunneling on a check some parameters can be added to any check type config as seen earlier in the Check Types section.
+To enable SSH tunneling for a check, add the following parameters to any check type config as seen earlier in the Check Types section.
 
 ```json
 {
@@ -418,13 +418,13 @@ To turn on ssh tunneling on a check some parameters can be added to any check ty
 
 Parameter | Requirement | Description
 --------- | ----------- | -----------
-tunnelOn  | Yes         | Set to "on" to turn on tunneling
-sshHost   | Yes         | The hostname or ip address of the tunnel destination
-sshPort   | No          | Defaults to port 22
-sshUser   | Yes         | The SSH Username on the target host we want to login as
-sshPassword | No        | Used if not using key based authentication
+tunnelOn  | Yes         | Set to `on` to turn on tunneling
+sshHost   | Yes         | Hostname or IP address of the proxy host
+sshPort   | No          | Port for SSH on the proxy host, defaults to 22
+sshUser   | Yes         | SSH user on the proxy host to login as
+sshPassword | No        | Password for user, if not using key based authentication
 
-<aside class="notice">A Note on Security. The config map for connecting to an ssh destination is heavily encrypted within our systems. The account keypairs are rsa-2048 bit encrypted as well and secure. In the event one becomes uncomfortable using this keypair it can always be cleared and reset in the account settings. If SSH is not an approach you want to take, an agent provides all the same functionality without the concern.</aside>
+<aside class="notice">**Note on Security** All check data including key-pairs are encrypted in Happy Apps using a RSA 2048 bit key. In the event you believe your private key is compromised or uncomfortable with the auto-generated key-pair, you can always re-create a new key-pair in account settings. An alternative to using tunneling is an agent, which provides behind-the-firewall access to your services.</aside>
 
 ## Mute a Check
 
@@ -436,7 +436,7 @@ curl -XPUT "https://api.happyapps.io/api/checks/1/mute" \
   -d '{"enabled":true}'
 ```
 
-> The above command returns JSON structured like this:
+> The above command returns JSON structure like this:
 
 ```json
 {
@@ -445,7 +445,7 @@ curl -XPUT "https://api.happyapps.io/api/checks/1/mute" \
 }
 ```
 
-This endpoint can be used to toggle the mute state of a Check.
+This endpoint can be used to toggle the mute state of a check on and off.
 
 ### HTTP Request
 
@@ -455,7 +455,7 @@ This endpoint can be used to toggle the mute state of a Check.
 
 Parameter | Description
 --------- | -----------
-enabled | Set this to true or false depending on if you want to mute or unmute a check.
+enabled | Set to true or false
 
 
 ## Delete a Check
@@ -465,7 +465,7 @@ curl -XDELETE "https://api.happyapps.io/api/checks/1" \
   -H "Authorization: BEARER access_token"
 ```
 
-> The above command returns JSON Structured like this:
+> The above command returns JSON structure like this:
 
 ```json
 {
@@ -473,5 +473,5 @@ curl -XDELETE "https://api.happyapps.io/api/checks/1" \
 }
 ```
 
-A Deleted check can be fetched optionally from the GET api for sync verification but can no longer be used or updated.
+A deleted check can be fetched from the API using the GET method to synchronize client side views, but can not be executed or updated.
 
