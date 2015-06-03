@@ -10,6 +10,9 @@ toc_footers:
 includes:
   - checks
   - check_types
+  - groups
+  - apps
+  - incidents
   - errors
 
 search: true

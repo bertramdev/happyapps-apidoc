@@ -64,7 +64,7 @@ curl "https://api.happyapps.io/api/checks"
 }
 ```
 
-This endpoint retrieves all checks and their json encoded config attributes based on check type. These are encryped in the databse.
+This endpoint retrieves all checks and their json encoded config attributes based on check type. These are encryped in the database.
 
 ### HTTP Request
 
