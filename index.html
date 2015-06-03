@@ -81,7 +81,7 @@ You must replace <code>access_token</code> with your generated Access Token.
 
           <h1 id="checks">Checks</h1>
 
-<p>Checks are the basic entity of everything you do in Happy apps. These entities define what gets run and when within the happy apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to not only get a list of all of an accounts checks but also to create, modify, mute, and delete them.</p>
+<p>Checks are the basic entity of everything you do in Happy Apps. These entities define what and when a check is executed within the Happy Apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to list of all of an account&rsquo;s checks in addition to create, modify, mute, and or delete them.</p>
 
 <h2 id="get-all-checks">Get All Checks</h2>
 <pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/checks"</span>
@@ -143,7 +143,7 @@ You must replace <code>access_token</code> with your generated Access Token.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all checks and their json encoded config attributes based on check type. These are encryped in the database.</p>
+<p>This endpoint retrieves all checks and their JSON encoded configuration attributes based on check type. Check data is encrypted in the database.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -161,22 +161,22 @@ You must replace <code>access_token</code> with your generated Access Token.
 <tr>
 <td>max</td>
 <td>25</td>
-<td>The max number of results to return</td>
+<td>Max number of results to return</td>
 </tr>
 <tr>
 <td>offset</td>
 <td>0</td>
-<td>The offset of records you want to load</td>
+<td>Offset of records you want to load</td>
 </tr>
 <tr>
 <td>lastUpdated</td>
 <td>null</td>
-<td>A date filter, restricts query to only load checks updated more recent or equal to the date specified</td>
+<td>Date filter, restricts query to only load checks updated  timestamp is more recent or equal to the date specified</td>
 </tr>
 <tr>
 <td>deleted</td>
 <td>undefined</td>
-<td>if this param is specified you can load previously deleted checks. This is useful for synchronizing deleted records in your client side store.</td>
+<td>Used to specify you can load previously deleted checks. Useful for synchronizing deleted records in your client side store.</td>
 </tr>
 </tbody></table>
 
@@ -259,7 +259,7 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the check to retrieve</td>
+<td>ID of the check to retrieve</td>
 </tr>
 </tbody></table>
 
@@ -281,7 +281,7 @@ Remember — a happy kitten is an authenticated kitten!
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like getting a single check: </p>
+<p>The above command returns a similar JSON structure when submitting a GET request for a single check </p>
 </blockquote>
 
 <h3 id="http-request">HTTP Request</h3>
@@ -300,47 +300,47 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>name</td>
 <td>null</td>
-<td>A unique name scoped to your account for the check</td>
+<td>Unique name scoped to your account for the check</td>
 </tr>
 <tr>
 <td>description</td>
 <td>null</td>
-<td>Optional description field if you want to put more info there</td>
+<td>Optional description field</td>
 </tr>
 <tr>
 <td>checkType</td>
 <td>null</td>
-<td>The check type you want to create should be passed by code <code class="prettyprint">{&quot;code&quot;: &quot;webGetCheck&quot;}</code></td>
+<td>Check type you want to create, use code and a valid check type: <code class="prettyprint">{&quot;code&quot;: &quot;webGetCheck&quot;}</code></td>
 </tr>
 <tr>
 <td>checkInterval</td>
 <td>300</td>
-<td>The number of seconds you want between check runs (can go as low as one minute if payment plan permits)</td>
+<td>Number of seconds you want between check executions (minimum value is 60, depending on your subscription plan)</td>
 </tr>
 <tr>
 <td>inUptime</td>
 <td>true</td>
-<td>Wether or not this check should affect account wide availability calculations.</td>
+<td>Used to determine if check should affect account wide availability calculations</td>
 </tr>
 <tr>
 <td>active</td>
 <td>true</td>
-<td>Wether or not the check should be marked active for run</td>
+<td>Used to determine if check should be scheduled to execute</td>
 </tr>
 <tr>
 <td>severity</td>
 <td>critical</td>
-<td>The severity level of incidents that are created when this check fails. They can be one of <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
+<td>Severity level of incidents that are created when this check fails. They can be <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
 </tr>
 <tr>
 <td>checkAgent</td>
 <td>null</td>
-<td>Can specify the checkAgent you want to run the check with i.e. <code class="prettyprint">{&quot;id&quot;: 1}</code></td>
+<td>Specifies agent you want to run the check with i.e. <code class="prettyprint">{&quot;id&quot;: 1}</code> See Agents for more information</td>
 </tr>
 <tr>
 <td>config</td>
 <td>null</td>
-<td>A JSON Encoded list of parameters that varies by check type. See below for more info</td>
+<td>JSON encoded list of parameters that varies by check type. See below for more information</td>
 </tr>
 </tbody></table>
 
@@ -362,7 +362,7 @@ Remember — a happy kitten is an authenticated kitten!
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like getting a single check: </p>
+<p>The above command returns a similar JSON structure when submitting a GET request for a single check </p>
 </blockquote>
 
 <h3 id="http-request">HTTP Request</h3>
@@ -381,53 +381,53 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>name</td>
 <td>null</td>
-<td>A unique name scoped to your account for the check</td>
+<td>Unique name scoped to your account for the check</td>
 </tr>
 <tr>
 <td>description</td>
 <td>null</td>
-<td>Optional description field if you want to put more info there</td>
+<td>Optional description field</td>
 </tr>
 <tr>
 <td>checkType</td>
 <td>null</td>
-<td>The check type you want to create should be passed by code <code class="prettyprint">{&quot;code&quot;: &quot;webGetCheck&quot;}</code></td>
+<td>Check type you want to create, use code and a valid check type: <code class="prettyprint">{&quot;code&quot;: &quot;webGetCheck&quot;}</code></td>
 </tr>
 <tr>
 <td>checkInterval</td>
 <td>300</td>
-<td>The number of seconds you want between check runs (can go as low as one minute if payment plan permits)</td>
+<td>Number of seconds you want between check executions (minimum value is 60, depending on your subscription plan)</td>
 </tr>
 <tr>
 <td>inUptime</td>
 <td>true</td>
-<td>Wether or not this check should affect account wide availability calculations.</td>
+<td>Used to determine if check should affect account wide availability calculations</td>
 </tr>
 <tr>
 <td>active</td>
 <td>true</td>
-<td>Wether or not the check should be marked active for run</td>
+<td>Used to determine if check should be scheduled to execute</td>
 </tr>
 <tr>
 <td>severity</td>
 <td>critical</td>
-<td>The severity level of incidents that are created when this check fails. They can be one of <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
+<td>Severity level of incidents that are created when this check fails. They can be <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
 </tr>
 <tr>
 <td>checkAgent</td>
 <td>null</td>
-<td>Can specify the checkAgent you want to run the check with i.e. <code class="prettyprint">{&quot;id&quot;: 1}</code></td>
+<td>Specifies agent you want to run the check with i.e. <code class="prettyprint">{&quot;id&quot;: 1}</code> See Agents for more information</td>
 </tr>
 <tr>
 <td>config</td>
 <td>null</td>
-<td>A JSON Encoded list of parameters that varies by check type. See below for more info</td>
+<td>JSON encoded list of parameters that varies by check type. See below for more information</td>
 </tr>
 </tbody></table>
 
 <h2 id="check-types-and-options">Check Types and Options</h2>
 
-<p>We support a wide variety of check types. Each check type varies in its config payload for determining how the check should be run.</p>
+<p>We support a wide variety of check types. Each check type varies in its configuration payload when determining how the check should be run.</p>
 
 <blockquote>
 <p>Creates a Web type Check</p>
@@ -445,7 +445,7 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>Code: <code class="prettyprint">webGetCheck</code></p>
 
-<p>The Web check allows you to perform a standard web request style check and validate the response came back successfully or even check for matching text within the result. There are several <code class="prettyprint">config</code> parameters available for use with this type of check</p>
+<p>Web check type allows you to perform a standard web request and validate the response came back successfully. Additionally, you can check for matching text within the result. There are several <code class="prettyprint">config</code> parameters available for use with this type of check</p>
 
 <table><thead>
 <tr>
@@ -457,22 +457,22 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>webMethod</td>
 <td>Yes</td>
-<td>The HTTP Method to use for testing (GET or POST)</td>
+<td>HTTP method to use for testing (GET or POST)</td>
 </tr>
 <tr>
 <td>webUrl</td>
 <td>Yes</td>
-<td>The Web URL you wish to use to run a check on</td>
+<td>Web URL you wish to use to run a check on</td>
 </tr>
 <tr>
 <td>checkUser</td>
 <td>No</td>
-<td>If you want to use HTTP Basic auth fill this in</td>
+<td>If you want to use HTTP Basic Authentication, populate this field with the username</td>
 </tr>
 <tr>
 <td>checkPassword</td>
 <td>No</td>
-<td>If you want to use HTTP Basic auth fill in this password.</td>
+<td>If you want to use HTTP basic Authentication, populate this field with the password</td>
 </tr>
 <tr>
 <td>textCheckOn</td>
@@ -482,11 +482,11 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>webTextMatch</td>
 <td>No</td>
-<td>Set the string you want to check for</td>
+<td>Set the string you want to look for in the page source</td>
 </tr>
 </tbody></table>
 
-<h3 id="mysql-check">Mysql Check</h3>
+<h3 id="mysql-check">MySQL Check</h3>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"check"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MySql Check"</span><span class="p">,</span><span class="w">
@@ -498,7 +498,7 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>Code: <code class="prettyprint">mysqlCheck</code></p>
 
-<p>The MySQL Check allows you not only to confirm that a mysql database is up and running but also allows you to run a query and test the result value. This can be useful for doing a slow query check or just making sure something isnt growing out of control.</p>
+<p>MySQL check allows you to execute a query so that you may validate the value returned in addition to verifying the database is responding. This can be useful for doing a slow query check or just making sure something isn&rsquo;t growing out of control.</p>
 
 <table><thead>
 <tr>
@@ -510,41 +510,41 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>dbHost</td>
 <td>Yes</td>
-<td>The hostname / ipaddress of the mysql database</td>
+<td>Hostname or IP address of the MySQL database</td>
 </tr>
 <tr>
 <td>dbPort</td>
 <td>Yes</td>
-<td>The MySQL Port (defaults to 3306)</td>
+<td>MySQL Port (defaults to 3306)</td>
 </tr>
 <tr>
 <td>dbUser</td>
 <td>Yes</td>
-<td>The Database username</td>
+<td>Database username</td>
 </tr>
 <tr>
 <td>dbPassword</td>
 <td>Yes</td>
-<td>The Database password (remember this gets encrypted)</td>
+<td>Database password, (all check data is encrypted inside the Happy Apps database)</td>
 </tr>
 <tr>
 <td>dbName</td>
 <td>Yes</td>
-<td>The database name you would like to connect to</td>
+<td>Database name you would like to connect to</td>
 </tr>
 <tr>
 <td>checkOperator</td>
 <td>No</td>
-<td>Can be set to lt (less than), gt (greater than), equal (Equal to) for comparison</td>
+<td>Can be set to <code class="prettyprint">lt</code> (less than), <code class="prettyprint">gt</code> (greater than), <code class="prettyprint">equal</code> (Equal to) for comparison</td>
 </tr>
 <tr>
 <td>checkResult</td>
 <td>No</td>
-<td>Numerical value to compare the check result against.</td>
+<td>Numerical value to compare the check result against</td>
 </tr>
 </tbody></table>
 
-<aside class="notice">More often than not you will not want to directly connect to your mysql database on the open web. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to your database is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 <h3 id="sql-server-check">SQL Server Check</h3>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -558,7 +558,7 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>Code: <code class="prettyprint">sqlCheck</code></p>
 
-<p>The SQL Server Check allows you not only to confirm that a Microsoft SQL Server database is up and running but also allows you to run a query and test the result value. This can be useful for doing a slow query check or just making sure something isnt growing out of control.</p>
+<p>SQL Server check allows to execute a query so that you may validate the value returned in addition to verifying the database is responding. This can be useful for doing a slow query check or just making sure something isn&rsquo;t growing out of control.</p>
 
 <table><thead>
 <tr>
@@ -570,41 +570,41 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>dbHost</td>
 <td>Yes</td>
-<td>The hostname / ipaddress of the sql database</td>
+<td>Hostname or IP address of the SQL database</td>
 </tr>
 <tr>
 <td>dbPort</td>
 <td>Yes</td>
-<td>The SQL Port (defaults to 1433)</td>
+<td>SQL Port (defaults to 1433)</td>
 </tr>
 <tr>
 <td>dbUser</td>
 <td>Yes</td>
-<td>The Database username</td>
+<td>Database username</td>
 </tr>
 <tr>
 <td>dbPassword</td>
 <td>Yes</td>
-<td>The Database password (remember this gets encrypted)</td>
+<td>Database password, (all check data is encrypted inside the Happy Apps database)</td>
 </tr>
 <tr>
 <td>dbName</td>
 <td>Yes</td>
-<td>The database name you would like to connect to</td>
+<td>Database name you would like to connect to</td>
 </tr>
 <tr>
 <td>checkOperator</td>
 <td>No</td>
-<td>Can be set to lt (less than), gt (greater than), equal (Equal to) for comparison</td>
+<td>Can be set to <code class="prettyprint">lt</code> (less than), <code class="prettyprint">gt</code> (greater than), <code class="prettyprint">equal</code> (Equal to) for comparison</td>
 </tr>
 <tr>
 <td>checkResult</td>
 <td>No</td>
-<td>Numerical value to compare the check result against.</td>
+<td>Numerical value to compare the check result against</td>
 </tr>
 </tbody></table>
 
-<aside class="notice">More often than not you will not want to directly connect to your sql database on the open web. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to your database is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 <h3 id="postgresql-check">PostgreSQL Check</h3>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -618,7 +618,7 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>Code: <code class="prettyprint">postgresCheck</code></p>
 
-<p>The Postgres Check allows you not only to confirm that a mysql database is up and running but also allows you to run a query and test the result value. This can be useful for doing a slow query check or just making sure something isnt growing out of control.</p>
+<p>PostgreSQL check allows to execute a query so that you may validate the value returned in addition to verifying the database is responding. This can be useful for doing a slow query check or just making sure something isn&rsquo;t growing out of control.</p>
 
 <table><thead>
 <tr>
@@ -630,41 +630,41 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>dbHost</td>
 <td>Yes</td>
-<td>The hostname / ipaddress of the postgres database</td>
+<td>Hostname or IP address of the PostgreSQL database</td>
 </tr>
 <tr>
 <td>dbPort</td>
 <td>Yes</td>
-<td>The Postgres Port (defaults to 5432)</td>
+<td>SQL Port (defaults to 5432)</td>
 </tr>
 <tr>
 <td>dbUser</td>
 <td>Yes</td>
-<td>The Database username</td>
+<td>Database username</td>
 </tr>
 <tr>
 <td>dbPassword</td>
 <td>Yes</td>
-<td>The Database password (remember this gets encrypted)</td>
+<td>Database password, (all check data is encrypted inside the Happy Apps database)</td>
 </tr>
 <tr>
 <td>dbName</td>
 <td>Yes</td>
-<td>The database name you would like to connect to</td>
+<td>Database name you would like to connect to</td>
 </tr>
 <tr>
 <td>checkOperator</td>
 <td>No</td>
-<td>Can be set to lt (less than), gt (greater than), equal (Equal to) for comparison</td>
+<td>Can be set to <code class="prettyprint">lt</code> (less than), <code class="prettyprint">gt</code> (greater than), <code class="prettyprint">equal</code> (Equal to) for comparison</td>
 </tr>
 <tr>
 <td>checkResult</td>
 <td>No</td>
-<td>Numerical value to compare the check result against.</td>
+<td>Numerical value to compare the check result against</td>
 </tr>
 </tbody></table>
 
-<aside class="notice">More often than not you will not want to directly connect to your postgres database on the open web. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to your database is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 <h3 id="socket-check">Socket Check</h3>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -678,7 +678,7 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>Code: <code class="prettyprint">socketCheck</code></p>
 
-<p>With a socket check you can confirm that certain TCP based services  are up and running within your environment. This can configured to both do an initial send upon connect and a comparison of the response made.</p>
+<p>Socket check confirms a certain TCP port is up and responding in your environment. It can be configured do an initial send upon connect and compare and expected response of the service.</p>
 
 <table><thead>
 <tr>
@@ -690,22 +690,22 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>host</td>
 <td>Yes</td>
-<td>The hostname / ipaddress of the socket server</td>
+<td>Hostname or IP address of the socket server</td>
 </tr>
 <tr>
 <td>port</td>
 <td>Yes</td>
-<td>The port we want to connect to</td>
+<td>TCP port</td>
 </tr>
 <tr>
 <td>send</td>
 <td>No</td>
-<td>A String you might want to send upon connect</td>
+<td>Connection string you might want to send to the service</td>
 </tr>
 <tr>
 <td>responseMatch</td>
 <td>No</td>
-<td>if you wish to test for a response match enter a string here</td>
+<td>Response from the service to match against</td>
 </tr>
 </tbody></table>
 
@@ -721,7 +721,7 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>Code: <code class="prettyprint">elasticSearchCheck</code></p>
 
-<p>The elastic search check is capable of connecting to your elastic search cluster / node and verifying its cluster health. It will also grab statistical information such as document size, capacity, and cpu usage for easy reference.</p>
+<p>Elasticsearch check is capable of connecting to your Elasticsearch, cluster or node, verifying its health. In addition, Happy Apps will also pull statistical information such as: document size, capacity, and cpu usage.</p>
 
 <table><thead>
 <tr>
@@ -733,22 +733,22 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>esHost</td>
 <td>Yes</td>
-<td>The hostname / ipaddress of the ElasticSearch server</td>
+<td>Hostname or IP address of the Elasticsearch server</td>
 </tr>
 <tr>
 <td>esPort</td>
 <td>Yes</td>
-<td>The http based port we want to connect to</td>
+<td>Port to connect to the HTTP service</td>
 </tr>
 </tbody></table>
 
-<aside class="notice">More often than not you will not want to directly connect to your ellastic database on the open web due to the lack of authentication. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
+<aside class="notice">Direct access over the Internet to Elasitcserch is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 <h2 id="ssh-tunneling">SSH Tunneling</h2>
 
-<p>SSH Tunneling options allow the different check types to tunnel into a host and perform checks relative to that host. The SSH Tunnel can use your account generated public/private key pair or a simple ssh password (however we strongly recommend the key pair).</p>
+<p>SSH tunneling options allow the different check types to tunnel to a host via a proxy, and execute checks relative to the proxy. A SSH tunnel can use your account generated public and private key-pairs or SSH password (we <strong>strongly</strong> recommend using a key-pair).</p>
 
-<p>To turn on ssh tunneling on a check some parameters can be added to any check type config as seen earlier in the Check Types section.</p>
+<p>To enable SSH tunneling for a check, add the following parameters to any check type config as seen earlier in the Check Types section.</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"check"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Socket Check"</span><span class="p">,</span><span class="w">
@@ -768,31 +768,31 @@ Remember — a happy kitten is an authenticated kitten!
 <tr>
 <td>tunnelOn</td>
 <td>Yes</td>
-<td>Set to &ldquo;on&rdquo; to turn on tunneling</td>
+<td>Set to <code class="prettyprint">on</code> to turn on tunneling</td>
 </tr>
 <tr>
 <td>sshHost</td>
 <td>Yes</td>
-<td>The hostname or ip address of the tunnel destination</td>
+<td>Hostname or IP address of the proxy host</td>
 </tr>
 <tr>
 <td>sshPort</td>
 <td>No</td>
-<td>Defaults to port 22</td>
+<td>Port for SSH on the proxy host, defaults to 22</td>
 </tr>
 <tr>
 <td>sshUser</td>
 <td>Yes</td>
-<td>The SSH Username on the target host we want to login as</td>
+<td>SSH user on the proxy host to login as</td>
 </tr>
 <tr>
 <td>sshPassword</td>
 <td>No</td>
-<td>Used if not using key based authentication</td>
+<td>Password for user, if not using key based authentication</td>
 </tr>
 </tbody></table>
 
-<aside class="notice">A Note on Security. The config map for connecting to an ssh destination is heavily encrypted within our systems. The account keypairs are rsa-2048 bit encrypted as well and secure. In the event one becomes uncomfortable using this keypair it can always be cleared and reset in the account settings. If SSH is not an approach you want to take, an agent provides all the same functionality without the concern.</aside>
+<aside class="notice">**Note on Security** All check data including key-pairs are encrypted in Happy Apps using a RSA 2048 bit key. In the event you believe your private key is compromised or uncomfortable with the auto-generated key-pair, you can always re-create a new key-pair in account settings. An alternative to using tunneling is an agent, which provides behind-the-firewall access to your services.</aside>
 
 <h2 id="mute-a-check">Mute a Check</h2>
 <pre class="highlight shell"><code>curl -XPUT <span class="s2">"https://api.happyapps.io/api/checks/1/mute"</span> <span class="se">\</span>
@@ -802,7 +802,7 @@ Remember — a happy kitten is an authenticated kitten!
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The above command returns JSON structure like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"muteState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QUARANTINED"</span><span class="p">,</span><span class="w">
@@ -810,7 +810,7 @@ Remember — a happy kitten is an authenticated kitten!
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint can be used to toggle the mute state of a Check.</p>
+<p>This endpoint can be used to toggle the mute state of a check on and off.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -826,7 +826,7 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>enabled</td>
-<td>Set this to true or false depending on if you want to mute or unmute a check.</td>
+<td>Set to true or false</td>
 </tr>
 </tbody></table>
 
@@ -836,18 +836,18 @@ Remember — a happy kitten is an authenticated kitten!
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON Structured like this:</p>
+<p>The above command returns JSON structure like this:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>A Deleted check can be fetched optionally from the GET api for sync verification but can no longer be used or updated.</p>
+<p>A deleted check can be fetched from the API using the GET method to synchronize client side views, but can not be executed or updated.</p>
 
           <h1 id="check-types">Check Types</h1>
 
-<p>A set of apis for fetching a list of available check types is also provided. This can make it useful for associating a check type code to an id for the check <code class="prettyprint">GET</code> requests.</p>
+<p>A set of APIs for fetching a list of available check types is also provided. This API can make it useful for associating a check type code to an ID for check <code class="prettyprint">GET</code> and <code class="prettyprint">POST</code> requests.</p>
 
 <h2 id="get-all-check-types">Get All Check Types</h2>
 <pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/check-types"</span>
@@ -855,7 +855,7 @@ Remember — a happy kitten is an authenticated kitten!
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON Structured like this</p>
+<p>The above command returns JSON structured like this</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"checkTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1073,7 +1073,7 @@ Remember — a happy kitten is an authenticated kitten!
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON Structured like this</p>
+<p>The above command returns JSON structured like this</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
 </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
