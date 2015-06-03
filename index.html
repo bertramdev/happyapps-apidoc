@@ -45,11 +45,11 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Thank you for checking out Happy Apps. This page provides documentation for the full coverege Happy Apps API. It is an OAUTH 2.0 compatible REST API with support for manipulating almost all aspects of a users account. Create checks, groups, apps, get stats, incidents, settings, and even push check status updates for the PUSH based check type.</p>
+<p>Thank you for checking out Happy Apps. This page provides documentation for the full coverage Happy Apps API. It is an OAUTH 2.0 compatible REST API with support for manipulating almost all aspects of a users account. Create checks, groups, apps, get stats, incidents, settings, and even push check status updates for the PUSH based check type.</p>
 
 <h1 id="authentication">Authentication</h1>
 
-<p>The Happy Apps API follows the Oauth 2.0 Specification and acts as an OAUTH 2.0 provider. To authorize your account you will need to use the same credentials you normally use to login to happy apps which will provide you with an <code class="prettyprint">accessToken</code> as well as a <code class="prettyprint">refreshToken</code></p>
+<p>The Happy Apps API follows the OAuth 2.0 Specification and acts as an OAUTH 2.0 provider. To authorize your account you will need to use the same credentials you normally use to login to happy apps which will provide you with an <code class="prettyprint">accessToken</code> as well as a <code class="prettyprint">refreshToken</code></p>
 
 <blockquote>
 <p>To authorize, use this code:</p>
@@ -71,7 +71,7 @@ curl -X POST --data <span class="s2">"username=meow&amp;password=meow"</span> <s
 <p>Make sure to replace <code class="prettyprint">meow</code> with your username and password.</p>
 </blockquote>
 
-<p>Happy apps expects all api requests to use the resultant <code class="prettyprint">access_token</code> from the request made during authantication. This can be passed via the <code class="prettyprint">Authorization</code> header. Be sure to replace the <code class="prettyprint">access_token</code> with the actual token received from the oauth request.</p>
+<p>Happy apps expects all api requests to use the resultant <code class="prettyprint">access_token</code> from the request made during authentication. This can be passed via the <code class="prettyprint">Authorization</code> header. Be sure to replace the <code class="prettyprint">access_token</code> with the actual token received from the OAuth request.</p>
 
 <p><code class="prettyprint">Authorization: BEARER access_token</code></p>
 
@@ -80,6 +80,8 @@ You must replace <code>access_token</code> with your generated Access Token.
 </aside>
 
           <h1 id="checks">Checks</h1>
+
+<p>Checks are the basic entity of everything you do in Happy apps. These entities define what gets run and when within the happy apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to not only get a list of all of an accounts checks but also to create, modify, mute, and delete them.</p>
 
 <h2 id="get-all-checks">Get All Checks</h2>
 <pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/checks"</span>
@@ -141,7 +143,7 @@ You must replace <code>access_token</code> with your generated Access Token.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all checks and their json encoded config attributes based on check type. These are encryped in the databse.</p>
+<p>This endpoint retrieves all checks and their json encoded config attributes based on check type. These are encryped in the database.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -810,21 +812,6 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p>This endpoint can be used to toggle the mute state of a Check.</p>
 
-<h2 id="delete-a-check">Delete a Check</h2>
-<pre class="highlight shell"><code>curl -XDELETE <span class="s2">"https://api.happyapps.io/api/checks/1"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: BEARER access_token"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON Structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>A Deleted check can be fetched optionally from the GET api for sync verification but can no longer be used or updated.</p>
-
 <h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">PUT https://api.happyapps.io/api/checks/:id/mute</code></p>
@@ -842,6 +829,21 @@ Remember — a happy kitten is an authenticated kitten!
 <td>Set this to true or false depending on if you want to mute or unmute a check.</td>
 </tr>
 </tbody></table>
+
+<h2 id="delete-a-check">Delete a Check</h2>
+<pre class="highlight shell"><code>curl -XDELETE <span class="s2">"https://api.happyapps.io/api/checks/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON Structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>A Deleted check can be fetched optionally from the GET api for sync verification but can no longer be used or updated.</p>
 
           <h1 id="check-types">Check Types</h1>
 
@@ -1102,11 +1104,799 @@ Remember — a happy kitten is an authenticated kitten!
 
 <p><code class="prettyprint">GET https://api.happyapps.io/api/check-types/1</code></p>
 
+          <h1 id="groups">Groups</h1>
+
+<p>Groups are a useful means to organize a set of checks. An example might be 3 web servers grouped under a web balancer. Or 2 mysql servers tied together as masters. This can be useful in setting up a hierarchy of the application infrastructure and help to properly create an availability discernment for you and your customers.</p>
+
+<h2 id="get-all-groups">Get All Groups</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/groups"</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"checkGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckGroup"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bertramlabs.plugins.Account"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.87202932</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheck"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dateCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-26T18:43:01Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"health"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastErrorDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMetric"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastRunDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-16T14:14:15Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastSuccessDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastTimer"</span><span class="p">:</span><span class="w"> </span><span class="mi">246</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-16T14:14:15Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastWarningDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"minHappy"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Group"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"outageTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"critical"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">  
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all groups and a list of checks associated with the group by id.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.happyapps.io/api/groups</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>max</td>
+<td>25</td>
+<td>The max number of results to return</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>0</td>
+<td>The offset of records you want to load</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>null</td>
+<td>A date filter, restricts query to only load groups updated more recent or equal to the date specified</td>
+</tr>
+<tr>
+<td>deleted</td>
+<td>undefined</td>
+<td>if this param is specified you can load previously deleted checks. This is useful for synchronizing deleted records in your client side store.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+<h2 id="get-a-specific-group">Get a Specific Group</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/groups/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"checkGroup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckGroup"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bertramlabs.plugins.Account"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.87202932</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheck"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"dateCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-26T18:43:01Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"health"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastErrorDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastMetric"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastRunDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-16T14:14:15Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastSuccessDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastTimer"</span><span class="p">:</span><span class="w"> </span><span class="mi">246</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-16T14:14:15Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastWarningDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"minHappy"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"outageTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"critical"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a specific group.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.happyapps.io/api/groups/:id</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the group to retrieve</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-group">Create a Group</h2>
+<pre class="highlight shell"><code>curl -XPOST <span class="s2">"https://api.happyapps.io/api/groups"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{"checkGoup":{
+    "name": "My Group",
+    "inUptime": true,
+    "severity": "critical",
+    "description": null,
+    "happyAppCheckIds": [1,2,3]
+  }}'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like getting a single group: </p>
+</blockquote>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.happyapps.io/api/groups</code></p>
+
+<h3 id="json-check-parameters">JSON Check Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>null</td>
+<td>A unique name scoped to your account for the group</td>
+</tr>
+<tr>
+<td>description</td>
+<td>null</td>
+<td>Optional description field if you want to put more info there</td>
+</tr>
+<tr>
+<td>inUptime</td>
+<td>true</td>
+<td>Wether or not this group should affect account wide availability calculations.</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>critical</td>
+<td>The severity level of incidents that are created when this group fails. They can be one of <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
+</tr>
+<tr>
+<td>happyAppCheckIds</td>
+<td>null</td>
+<td>Array of check ids to be placed within the group</td>
+</tr>
+</tbody></table>
+
+<h2 id="updating-a-group">Updating a Group</h2>
+<pre class="highlight shell"><code>curl -XPUT <span class="s2">"https://api.happyapps.io/api/groups/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{"checkGroup":{
+    "name": "My Group",
+    "inUptime": true,
+    "severity": "critical",
+    "description": null,
+    "happyAppCheckIds": [1,2,3]
+  }}'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like getting a single group: </p>
+</blockquote>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT https://api.happyapps.io/api/groups/:id</code></p>
+
+<h3 id="json-check-parameters">JSON Check Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>null</td>
+<td>A unique name scoped to your account for the group</td>
+</tr>
+<tr>
+<td>description</td>
+<td>null</td>
+<td>Optional description field if you want to put more info there</td>
+</tr>
+<tr>
+<td>inUptime</td>
+<td>true</td>
+<td>Wether or not this group should affect account wide availability calculations.</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>critical</td>
+<td>The severity level of incidents that are created when this group fails. They can be one of <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
+</tr>
+<tr>
+<td>happyAppCheckIds</td>
+<td>null</td>
+<td>Array of check ids to be placed within the group</td>
+</tr>
+</tbody></table>
+
+<h2 id="mute-a-group">Mute a Group</h2>
+<pre class="highlight shell"><code>curl -XPUT <span class="s2">"https://api.happyapps.io/api/groups/1/mute"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{"enabled":true}'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"muteState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QUARANTINED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint can be used to toggle the mute state of a Group.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT https://api.happyapps.io/api/groups/:id/mute</code></p>
+
+<h3 id="json-parameters">JSON Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>enabled</td>
+<td>Set this to true or false depending on if you want to mute or unmute a group.</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-group">Delete a Group</h2>
+<pre class="highlight shell"><code>curl -XDELETE <span class="s2">"https://api.happyapps.io/api/groups/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON Structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>A Deleted group can be fetched optionally from the GET api for sync verification but can no longer be used or updated.</p>
+
+          <h1 id="apps">Apps</h1>
+
+<p>Apps are a useful means to organize a set of checks and groups. You can assign any set of checks or groups to an app to define what items in your infrastructure affect an overall applications health. This is useful for scoping incidents to the engineering team responsible for an application and also to provide an overview of what a check failure might actually be affecting throughout your environment.</p>
+
+<h2 id="get-all-apps">Get All Apps</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/apps"</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"apps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyApp"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bertramlabs.plugins.Account"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"allCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"availability"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"checkGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dateCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-09T21:14:51Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"health"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastErrorDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastRunDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastSuccessDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastTimer"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-09T21:14:51Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastWarningDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My blank app"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"critical"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"urlName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"appCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all apps and a list of checks and groups associated with the app by id.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.happyapps.io/api/apps</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>max</td>
+<td>25</td>
+<td>The max number of results to return</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>0</td>
+<td>The offset of records you want to load</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>null</td>
+<td>A date filter, restricts query to only load apps updated more recent or equal to the date specified</td>
+</tr>
+<tr>
+<td>deleted</td>
+<td>undefined</td>
+<td>if this param is specified you can load previously deleted apps. This is useful for synchronizing deleted records in your client side store.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+<h2 id="get-a-specific-app">Get a Specific App</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/apps/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"app"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyApp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bertramlabs.plugins.Account"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"allCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"availability"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"checkGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"dateCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-09T21:14:51Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"health"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastErrorDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastRunDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastSuccessDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastTimer"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-09T21:14:51Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastWarningDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My blank app"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"critical"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"urlName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a specific app.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.happyapps.io/api/apps/:id</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the app to retrieve</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-app">Create a App</h2>
+<pre class="highlight shell"><code>curl -XPOST <span class="s2">"https://api.happyapps.io/api/apps"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{"app":{
+    "name": "My App",
+    "inUptime": true,
+    "severity": "critical",
+    "description": null,
+    "happyAppCheckIds": [1,2,3],
+    "happyAppCheckGroupIds": [1,2,3]
+  }}'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like getting a single app: </p>
+</blockquote>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.happyapps.io/api/apps</code></p>
+
+<h3 id="json-check-parameters">JSON Check Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>null</td>
+<td>A unique name scoped to your account for the app</td>
+</tr>
+<tr>
+<td>description</td>
+<td>null</td>
+<td>Optional description field if you want to put more info there</td>
+</tr>
+<tr>
+<td>inUptime</td>
+<td>true</td>
+<td>Wether or not this app should affect account wide availability calculations.</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>critical</td>
+<td>The severity level of incidents that are created when this app fails. They can be one of <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
+</tr>
+<tr>
+<td>happyAppCheckIds</td>
+<td>null</td>
+<td>Array of check ids to be placed within the app</td>
+</tr>
+<tr>
+<td>happyAppCheckGroupIds</td>
+<td>null</td>
+<td>Array of group ids to be placed within the app</td>
+</tr>
+</tbody></table>
+
+<h2 id="updating-a-app">Updating a App</h2>
+<pre class="highlight shell"><code>curl -XPUT <span class="s2">"https://api.happyapps.io/api/apps/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{"app":{
+    "name": "My App",
+    "inUptime": true,
+    "severity": "critical",
+    "description": null,
+    "happyAppCheckIds": [1,2,3],
+    "happyAppCheckGroupIds": [1,2,3]
+  }}'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like getting a single app: </p>
+</blockquote>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT https://api.happyapps.io/api/apps/:id</code></p>
+
+<h3 id="json-check-parameters">JSON Check Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>null</td>
+<td>A unique name scoped to your account for the app</td>
+</tr>
+<tr>
+<td>description</td>
+<td>null</td>
+<td>Optional description field if you want to put more info there</td>
+</tr>
+<tr>
+<td>inUptime</td>
+<td>true</td>
+<td>Wether or not this app should affect account wide availability calculations.</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>critical</td>
+<td>The severity level of incidents that are created when this app fails. They can be one of <code class="prettyprint">info</code>, <code class="prettyprint">warning</code>, or <code class="prettyprint">critical</code></td>
+</tr>
+<tr>
+<td>happyAppCheckIds</td>
+<td>null</td>
+<td>Array of check ids to be placed within the app</td>
+</tr>
+<tr>
+<td>happyAppCheckGroupIds</td>
+<td>null</td>
+<td>Array of group ids to be placed within the app</td>
+</tr>
+</tbody></table>
+
+<h2 id="mute-a-app">Mute a App</h2>
+<pre class="highlight shell"><code>curl -XPUT <span class="s2">"https://api.happyapps.io/api/apps/1/mute"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{"enabled":true}'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"muteState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QUARANTINED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint can be used to toggle the mute state of a App.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">PUT https://api.happyapps.io/api/apps/:id/mute</code></p>
+
+<h3 id="json-parameters">JSON Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>enabled</td>
+<td>Set this to true or false depending on if you want to mute or unmute a app.</td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-a-app">Delete a App</h2>
+<pre class="highlight shell"><code>curl -XDELETE <span class="s2">"https://api.happyapps.io/api/apps/1"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON Structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>A Deleted app can be fetched optionally from the GET api for sync verification but can no longer be used or updated.</p>
+
+          <h1 id="incidents">Incidents</h1>
+
+<p>Incidents are used to keep track of failed checks, groups, and apps. They can be used to keep a running history of what failed and when. They can also be updated to provide notes and resolution information. An incident can also be scoped to an app, many checks, or many groups depending on your defined heirarchy.</p>
+
+<h2 id="get-all-incidents">Get All Incidents</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/incidents"</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"openIncidents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"incidentStats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"today"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"week"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"month"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"incidents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyIncident"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">122</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bertramlabs.plugins.Account"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"app"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"autoClose"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"autoManaged"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"channelId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f8d47f3e-1bbb-4b7e-9e53-8c396acc6e86"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"checkGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheck"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dateCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-31T19:57:29Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">65286</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"endDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-14T21:12:45Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"incidentEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyIncidentEvent"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">268</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyIncidentEvent"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">267</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"lastCheckTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-14T21:11:40Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http error: www.googleFAILNOW.com: nodename nor servname provided, or not known"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-31T19:57:41Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"notificationEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyIncidentNotifyEvent"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">196</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyIncidentNotifyEvent"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">195</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"resolution"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"critical"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"severityId"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-14T21:11:40Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"closed"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"visibility"</span><span class="p">:</span><span class="w"> </span><span class="s2">"private"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"incidentCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">109</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves all open incidents, a pageable list of all incidents, and a stat summary of incidents</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.happyapps.io/api/incidents</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>max</td>
+<td>25</td>
+<td>The max number of results to return</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>0</td>
+<td>The offset of records you want to load</td>
+</tr>
+<tr>
+<td>lastUpdated</td>
+<td>null</td>
+<td>A date filter, restricts query to only load incidents updated more recent or equal to the date specified</td>
+</tr>
+</tbody></table>
+
           <h1 id="errors">Errors</h1>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>The Happy Apps API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -1124,7 +1914,7 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Forbidden &ndash; The entity requested is restricted</td>
 </tr>
 <tr>
 <td>404</td>
@@ -1132,23 +1922,15 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>Method Not Allowed &ndash; You tried to access an entity with an invalid method</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
 <td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many entities! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
