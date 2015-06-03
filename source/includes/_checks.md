@@ -398,6 +398,32 @@ esPort      | Yes         | The http based port we want to connect to
 
 <aside class="notice">More often than not you will not want to directly connect to your ellastic database on the open web due to the lack of authentication. There are some options here. One is to use ssh tunneling which can be configured via adding some additional parameters to the config json (See the section on SSH Checks). Another option is to run our agent with an upgraded plan where the check can run from within a firewall.</aside>
 
+## SSH Tunneling
+
+SSH Tunneling options allow the different check types to tunnel into a host and perform checks relative to that host. The SSH Tunnel can use your account generated public/private key pair or a simple ssh password (however we strongly recommend the key pair).
+
+To turn on ssh tunneling on a check some parameters can be added to any check type config as seen earlier in the Check Types section.
+
+```json
+{
+  "check": {
+    "name": "Socket Check",
+    "checkType": {"code": "elasticSearchCheck"},
+    "config": "{\"esHost\":\"test.example.org\",\"esPort\": \"9200\", \"tunnelOn\": \"on\", \"sshHost\": \"example.org\", \"sshPort\": 22, \"sshUser\": \"happyapps\"}"
+  }
+}
+```
+
+Parameter | Requirement | Description
+--------- | ----------- | -----------
+tunnelOn  | Yes         | Set to "on" to turn on tunneling
+sshHost   | Yes         | The hostname or ip address of the tunnel destination
+sshPort   | No          | Defaults to port 22
+sshUser   | Yes         | The SSH Username on the target host we want to login as
+sshPassword | No        | Used if not using key based authentication
+
+<aside class="notice">A Note on Security. The config map for connecting to an ssh destination is heavily encrypted within our systems. The account keypairs are rsa-2048 bit encrypted as well and secure. In the event one becomes uncomfortable using this keypair it can always be cleared and reset in the account settings. If SSH is not an approach you want to take, an agent provides all the same functionality without the concern.</aside>
+
 ## Mute a Check
 
 
