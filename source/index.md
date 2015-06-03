@@ -17,11 +17,11 @@ search: true
 
 # Introduction
 
-Thank you for checking out Happy Apps. This page provides documentation for the full coverege Happy Apps API. It is an OAUTH 2.0 compatible REST API with support for manipulating almost all aspects of a users account. Create checks, groups, apps, get stats, incidents, settings, and even push check status updates for the PUSH based check type.
+Thank you for checking out Happy Apps. This page provides documentation for the full coverage Happy Apps API. It is an OAUTH 2.0 compatible REST API with support for manipulating almost all aspects of a users account. Create checks, groups, apps, get stats, incidents, settings, and even push check status updates for the PUSH based check type.
 
 # Authentication
 
-The Happy Apps API follows the Oauth 2.0 Specification and acts as an OAUTH 2.0 provider. To authorize your account you will need to use the same credentials you normally use to login to happy apps which will provide you with an `accessToken` as well as a `refreshToken`
+The Happy Apps API follows the OAuth 2.0 Specification and acts as an OAUTH 2.0 provider. To authorize your account you will need to use the same credentials you normally use to login to happy apps which will provide you with an `accessToken` as well as a `refreshToken`
 
 > To authorize, use this code:
 
@@ -41,7 +41,7 @@ curl -X POST --data "username=meow&password=meow" "https://api.happyapps.io/oaut
 
 > Make sure to replace `meow` with your username and password.
 
-Happy apps expects all api requests to use the resultant `access_token` from the request made during authantication. This can be passed via the `Authorization` header. Be sure to replace the `access_token` with the actual token received from the oauth request.
+Happy apps expects all api requests to use the resultant `access_token` from the request made during authentication. This can be passed via the `Authorization` header. Be sure to replace the `access_token` with the actual token received from the OAuth request.
 
 `Authorization: BEARER access_token`
 
