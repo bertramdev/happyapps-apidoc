@@ -1,5 +1,7 @@
 # Checks
 
+Checks are the basic entity of everything you do in Happy apps. These entities define what gets run and when within the happy apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to not only get a list of all of an accounts checks but also to create, modify, mute, and delete them.
+
 ## Get All Checks
 
 ```shell
@@ -445,6 +447,17 @@ curl -XPUT "https://api.happyapps.io/api/checks/1/mute" \
 
 This endpoint can be used to toggle the mute state of a Check.
 
+### HTTP Request
+
+`PUT https://api.happyapps.io/api/checks/:id/mute`
+
+### JSON Parameters
+
+Parameter | Description
+--------- | -----------
+enabled | Set this to true or false depending on if you want to mute or unmute a check.
+
+
 ## Delete a Check
 
 ```shell
@@ -462,13 +475,3 @@ curl -XDELETE "https://api.happyapps.io/api/checks/1" \
 
 A Deleted check can be fetched optionally from the GET api for sync verification but can no longer be used or updated.
 
-
-### HTTP Request
-
-`PUT https://api.happyapps.io/api/checks/:id/mute`
-
-### JSON Parameters
-
-Parameter | Description
---------- | -----------
-enabled | Set this to true or false depending on if you want to mute or unmute a check.
