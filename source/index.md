@@ -8,6 +8,7 @@ toc_footers:
   - <a href='https://app.happyapps.io/signup/show'>Sign up for API Access</a>
 
 includes:
+  - dashboard
   - checks
   - pushchecks
   - check_types
