@@ -398,7 +398,7 @@ Parameter | Requirement | Description
 esHost      | Yes         | Hostname or IP address of the Elasticsearch server
 esPort      | Yes         | Port to connect to the HTTP service 
 
-<aside class="notice">Direct access over the Internet to Elasitcserch is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
+<aside class="notice">Direct access over the Internet to Elasticsearch is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
 ### Push Check
 
