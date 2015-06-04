@@ -40,3 +40,5 @@ success   | false   | Set wether or not the check passed
 startDate | NOW()   | The start time of the check run (optional)
 endDate   | NOW()   | The end time of the  check run time (if specified with start date the response time metric will be accurately represented)
 message   | null    | An optional string message that will show in the check history for the particular check run
+
+<aside class="notice">Don't forget to Push it real good!</aside>
