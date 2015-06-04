@@ -1,6 +1,6 @@
 # Checks
 
-Checks are the basic entity of everything you do in Happy Apps. These entities define what and when a check is executed within the Happy Apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to list of all of an account's checks in addition to create, modify, mute, and or delete them.
+Checks are the basic entity of everything you do in Happy Apps. These entities define what and when a check is executed within the Happy Apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to list all of an account's checks in addition to create, modify, mute, and or delete them.
 
 ## Get All Checks
 
