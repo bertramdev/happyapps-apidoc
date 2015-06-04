@@ -744,6 +744,19 @@ Remember — a happy kitten is an authenticated kitten!
 
 <aside class="notice">Direct access over the Internet to Elasitcserch is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
+<h3 id="push-check">Push Check</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"check"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Push Check"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"checkType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pushCheck"</span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Code: <code class="prettyprint">pushCheck</code></p>
+
+<p>A Push check is a check that is updated by a web hook. An external source is responsible for periodically submitting a check status. Please see the section on Push Checks API for details.</p>
+
 <h2 id="ssh-tunneling">SSH Tunneling</h2>
 
 <p>SSH tunneling options allow the different check types to tunnel to a host via a proxy, and execute checks relative to the proxy. A SSH tunnel can use your account generated public and private key-pairs or SSH password (we <strong>strongly</strong> recommend using a key-pair).</p>
@@ -844,6 +857,69 @@ Remember — a happy kitten is an authenticated kitten!
 </span></code></pre>
 
 <p>A deleted check can be fetched from the API using the GET method to synchronize client side views, but can not be executed or updated.</p>
+
+          <h1 id="push-checks">Push Checks</h1>
+
+<p>A Push Check is a check type that is not run by any of our happy apps check servers nor an agent. Rather it acts as a web hook where the user is responsible for submitting status updates to happy apps about the check. These status updates need to be regularly submitted and consistent with the checks configured time interval. If a check has not been heard from for more than 2x the check interval time it is marked as a failed check and an incident is raised.</p>
+
+<p>To create a Push Check please check the Checks API or create a Push Check in the UI.</p>
+
+<h2 id="submitting-a-check-status">Submitting a Check Status</h2>
+<pre class="highlight shell"><code>curl -XPOST https://api.happyapps.io/api/push?apiKey<span class="o">=</span>INSERT_KEY_HERE -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+--data <span class="s1">'{
+  "success":true,
+  "message": "any comment goes here",
+  "startDate": "2015-05-01T12:35:14Z",
+  "endDate": "2015-05-01T12:35:14Z"
+  }'</span>
+</code></pre>
+
+<blockquote>
+<p>The above will return JSON in the format of</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="s2">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>If you are pushing updates to quickly the response will be a 429 with the following payload</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="s2">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"msg"</span><span class="p">:</span><span class="s2">"Pushed too quickly, please wait 54004ms before sending again."</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api.happyapps.io/api/push?apiKey=INSERT_KEY_HERE</code></p>
+
+<h3 id="json-parameters">JSON Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>false</td>
+<td>Set wether or not the check passed</td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>NOW()</td>
+<td>The start time of the check run (optional)</td>
+</tr>
+<tr>
+<td>endDate</td>
+<td>NOW()</td>
+<td>The end time of the  check run time (if specified with start date the response time metric will be accurately represented)</td>
+</tr>
+<tr>
+<td>message</td>
+<td>null</td>
+<td>An optional string message that will show in the check history for the particular check run</td>
+</tr>
+</tbody></table>
 
           <h1 id="check-types">Check Types</h1>
 
