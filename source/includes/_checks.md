@@ -400,6 +400,21 @@ esPort      | Yes         | Port to connect to the HTTP service
 
 <aside class="notice">Direct access over the Internet to Elasitcserch is not required.  SSH tunneling is available to protect the communication, which is configured using additional JSON parameters (see SSH checks). Also, you can run our agent, with the correct subscription plan, where the check is executed from a host behind your firewall.</aside>
 
+### Push Check
+
+```json
+{
+  "check": {
+    "name": "Push Check",
+    "checkType": {"code": "pushCheck"}
+  }
+}
+```
+
+Code: `pushCheck`
+
+A Push check is a check that is updated by a web hook. An external source is responsible for periodically submitting a check status. Please see the section on Push Checks API for details.
+
 ## SSH Tunneling
 
 SSH tunneling options allow the different check types to tunnel to a host via a proxy, and execute checks relative to the proxy. A SSH tunnel can use your account generated public and private key-pairs or SSH password (we **strongly** recommend using a key-pair).

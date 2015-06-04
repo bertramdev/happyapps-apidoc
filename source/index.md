@@ -9,6 +9,7 @@ toc_footers:
 
 includes:
   - checks
+  - pushchecks
   - check_types
   - groups
   - apps
