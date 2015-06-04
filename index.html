@@ -79,6 +79,347 @@ curl -X POST --data <span class="s2">"username=meow&amp;password=meow"</span> <s
 You must replace <code>access_token</code> with your generated Access Token.
 </aside>
 
+          <h1 id="dashboard-stats">Dashboard Stats</h1>
+
+<p>Ever wonder how to extract all those useful statistics from the dashboard? Happy Apps provides an API endpoint for fetching all your dashboard stats. This could come in handy if one wanted to integrate a Happy Apps dashboard into their own monitoring website or service.</p>
+
+<h2 id="getting-dashboard-stats">Getting Dashboard Stats</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.happyapps.io/api/dashboard"</span>
+  -H <span class="s2">"Authorization: BEARER access_token"</span>
+</code></pre>
+
+<blockquote>
+<p>Returns JSON of the following format</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"appList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyApp"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bertramlabs.plugins.Account"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"allCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.99282407</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"checkGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheck"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dateCreated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-27T01:28:56Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"health"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastErrorDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastRunDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-04T15:10:00Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastSuccessDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastTimer"</span><span class="p">:</span><span class="w"> </span><span class="mi">605</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-04T15:10:01Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastWarningDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My App"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"critical"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"urlName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"openIncidents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"checkTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webGetCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/webCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"response"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Web Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsWebGetCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/webCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/webCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mysqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/mysqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"result"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MySQL Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsMySqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/mysqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/mysqlCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mongoCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/mongoCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"result"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mongo Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsMongoCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/mongoCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/mongoCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elasticSearchCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/elasticCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cluster status"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elastic Search Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsElasticSearchCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/elasticCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/elasticCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"riakCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/riakCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"write time"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Riak Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsRiakCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/riakCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/riakCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redisCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/redisCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"key count"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Redis Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsRedisCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/redisCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/redisCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rabbitCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/rabbitCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"queue count"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rabbit MQ Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsRabbitMqCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/rabbitCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/rabbitCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"postgresCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/postgresCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"result"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Postgres Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsPostgresCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/postgresCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/postgresCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/sqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"result"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft SQL Server"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsSqlServerCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/sqlCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/sqlCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"socketCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/socketCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"response"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Socket Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"happyappsSocketCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/socketCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/socketCheck"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.happyapps.HappyCheckType"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pushCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"defaultInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execMethod"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"execService"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconPath"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iconType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upload"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inputTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/input\/pushCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metricName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"result"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Push API Check"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pushOnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statusTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/status\/pushCheck"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tunnelSupported"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"viewTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\/templates\/view\/pushCheck"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"checkId"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastTimer"</span><span class="p">:</span><span class="w"> </span><span class="mi">171</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastErrorDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T09:24:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastStats"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastRunDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-04T15:10:00Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"health"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastWarningDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"inUptime"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createIncident"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastCheckStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1433430600403215Aee7Ly9Qep"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastBoxStats"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastSuccessDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-04T15:10:00.169Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMetric"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MadTrack"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"outageTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http 200"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"checkTypeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastError"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http error: Read timed out"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"internalError"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"appStatus"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"avgHealth"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"avgResponseTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">274</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"warningApps"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"warningChecks"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"failApps"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"failChecks"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"successApps"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mutedApps"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"successChecks"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mutedChecks"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"allSuccess"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"availability"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.777486775714</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves an overall <code class="prettyprint">appStatus</code> with counts for the different states of your checks,groups, and apps. It also provides an account wide <code class="prettyprint">availability</code>. Other features include recently run check history, a check list, and an app list for viewing.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.happyapps.io/api/dashboard</code></p>
+
           <h1 id="checks">Checks</h1>
 
 <p>Checks are the basic entity of everything you do in Happy Apps. These entities define what and when a check is executed within the Happy Apps system. Happy Apps supports a vast array of different check types (not solely web checks). The API provides a means to list of all of an account&rsquo;s checks in addition to create, modify, mute, and or delete them.</p>
