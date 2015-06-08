@@ -15,10 +15,8 @@ curl "https://api.happyapps.io/api/checks"
 {
   "checks": [
     {
-      "class": "com.happyapps.HappyCheck",
       "id": 798,
       "account": {
-        "class": "com.bertramlabs.plugins.Account",
         "id": 1
       },
       "active": true,
@@ -30,7 +28,6 @@ curl "https://api.happyapps.io/api/checks"
       "checkInterval": 300,
       "checkSpec": null,
       "checkType": {
-        "class": "com.happyapps.HappyCheckType",
         "id": 1
       },
       "config": "{\n  \"webMethod\" : \"GET\",\n  \"webUrl\" : \"http:\\\/\\\/google.com\"\n}",
@@ -38,7 +35,6 @@ curl "https://api.happyapps.io/api/checks"
       "dateCreated": "2015-05-16T12:05:23Z",
       "deleted": false,
       "description": null,
-      "endDate": null,
       "health": 10,
       "history": "{\"checkDates\":[1433339580607,1433339595119,1433339613169,1433339625412,1433339641010,1433339655209,1433339670178,1433339687802,1433339700471,1433339715171,1433339730710,1433339745351,1433339764299,1433339775508,1433339790377,1433339805373,1433339820944,1433339835996,1433339850317,1433339865833,1433339880884,1433339895489,1433339910554,1433339925660,1433339940875,1433339956143,1433339970551,1433339985179,1433340000961,1433340015765],\"successList\":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],\"healthList\":[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10],\"timerList\":[347,410,338,337,365,361,373,374,358,337,350,505,342,338,358,359,381,354,353,377,342,344,349,363,329,352,350,348,356,345]}",
       "inUptime": true,
@@ -56,7 +52,6 @@ curl "https://api.happyapps.io/api/checks"
       "lastWarningDate": null,
       "name": "Purity Plus",
       "nextRunDate": "2015-06-03T14:00:16Z",
-      "outageTime": 0,
       "severity": "critical",
       "startDate": null
     }
@@ -98,10 +93,8 @@ curl "https://api.happyapps.io/api/checks/1" \
 {
   "success": true,
   "check:" {
-    "class": "com.happyapps.HappyCheck",
     "id": 798,
     "account": {
-      "class": "com.bertramlabs.plugins.Account",
       "id": 1
     },
     "active": true,
@@ -113,7 +106,6 @@ curl "https://api.happyapps.io/api/checks/1" \
     "checkInterval": 300,
     "checkSpec": null,
     "checkType": {
-      "class": "com.happyapps.HappyCheckType",
       "id": 1
     },
     "config": "{\n  \"webMethod\" : \"GET\",\n  \"webUrl\" : \"http:\\\/\\\/google.com\"\n}",
@@ -121,7 +113,6 @@ curl "https://api.happyapps.io/api/checks/1" \
     "dateCreated": "2015-05-16T12:05:23Z",
     "deleted": false,
     "description": null,
-    "endDate": null,
     "health": 10,
     "history": "{\"checkDates\":[1433339580607,1433339595119,1433339613169,1433339625412,1433339641010,1433339655209,1433339670178,1433339687802,1433339700471,1433339715171,1433339730710,1433339745351,1433339764299,1433339775508,1433339790377,1433339805373,1433339820944,1433339835996,1433339850317,1433339865833,1433339880884,1433339895489,1433339910554,1433339925660,1433339940875,1433339956143,1433339970551,1433339985179,1433340000961,1433340015765],\"successList\":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],\"healthList\":[10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10],\"timerList\":[347,410,338,337,365,361,373,374,358,337,350,505,342,338,358,359,381,354,353,377,342,344,349,363,329,352,350,348,356,345]}",
     "inUptime": true,
@@ -139,9 +130,7 @@ curl "https://api.happyapps.io/api/checks/1" \
     "lastWarningDate": null,
     "name": "Purity Plus",
     "nextRunDate": "2015-06-03T14:00:16Z",
-    "outageTime": 0,
     "severity": "critical",
-    "startDate": null
   }
 }
 ```

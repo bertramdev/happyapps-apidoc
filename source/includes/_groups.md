@@ -15,16 +15,13 @@ curl "https://api.happyapps.io/api/groups"
 {
   "checkGroups": [
     {
-      "class": "com.happyapps.HappyCheckGroup",
       "id": 1,
       "account": {
-        "class": "com.bertramlabs.plugins.Account",
         "id": 1
       },
       "availability": 99.87202932,
       "checks": [
         {
-          "class": "com.happyapps.HappyCheck",
           "id": 3
         }
       ],
@@ -88,16 +85,13 @@ curl "https://api.happyapps.io/api/groups/1" \
 {
   "success": true,
   "checkGroup": {
-    "class": "com.happyapps.HappyCheckGroup",
     "id": 1,
     "account": {
-      "class": "com.bertramlabs.plugins.Account",
       "id": 1
     },
     "availability": 99.87202932,
     "checks": [
       {
-        "class": "com.happyapps.HappyCheck",
         "id": 3
       }
     ],

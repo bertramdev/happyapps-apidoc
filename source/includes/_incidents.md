@@ -23,10 +23,8 @@ curl "https://api.happyapps.io/api/incidents"
   },
   "incidents": [
     {
-      "class": "com.happyapps.HappyIncident",
       "id": 122,
       "account": {
-        "class": "com.bertramlabs.plugins.Account",
         "id": 1
       },
       "app": null,
@@ -38,7 +36,6 @@ curl "https://api.happyapps.io/api/incidents"
       ],
       "checks": [
         {
-          "class": "com.happyapps.HappyCheck",
           "id": 1
         }
       ],
@@ -49,11 +46,9 @@ curl "https://api.happyapps.io/api/incidents"
       "inUptime": true,
       "incidentEvents": [
         {
-          "class": "com.happyapps.HappyIncidentEvent",
           "id": 268
         },
         {
-          "class": "com.happyapps.HappyIncidentEvent",
           "id": 267
         }
       ],
@@ -64,11 +59,9 @@ curl "https://api.happyapps.io/api/incidents"
       "name": null,
       "notificationEvents": [
         {
-          "class": "com.happyapps.HappyIncidentNotifyEvent",
           "id": 196
         },
         {
-          "class": "com.happyapps.HappyIncidentNotifyEvent",
           "id": 195
         }
       ],

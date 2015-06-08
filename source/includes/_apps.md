@@ -15,10 +15,8 @@ curl "https://api.happyapps.io/api/apps"
 {
   "apps": [
     {
-      "class": "com.happyapps.HappyApp",
       "id": 2,
       "account": {
-        "class": "com.bertramlabs.plugins.Account",
         "id": 1
       },
       "active": true,
@@ -91,10 +89,8 @@ curl "https://api.happyapps.io/api/apps/1" \
 {
   "success": true,
   "app": {
-    "class": "com.happyapps.HappyApp",
     "id": 2,
     "account": {
-      "class": "com.bertramlabs.plugins.Account",
       "id": 1
     },
     "active": true,
